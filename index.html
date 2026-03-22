@@ -316,130 +316,19 @@ h1 em{font-style:italic;color:var(--accent);}
 .cpd{font-size:10.5px;color:var(--accent);opacity:0;transition:opacity .3s;margin-left:4px;}
 .cpd.s{opacity:1;}
 
-/* ── RESPONSIVE ── */
-
-/* Large desktop */
-
-
-/* HAMBURGER for mobile */
-.ham{display:none;flex-direction:column;gap:4px;background:none;
-  border:none;padding:6px;border-radius:4px;cursor:pointer;
-  transition:background .15s;}
-.ham:hover{background:var(--bg3);}
-.ham span{display:block;width:18px;height:1.5px;background:var(--text2);
-  transition:all .25s;border-radius:1px;}
-.ham.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg);}
-.ham.open span:nth-child(2){opacity:0;}
-.ham.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg);}
-
-/* mobile nav drawer */
-.mob-nav{display:none;position:fixed;top:50px;left:0;right:0;
-  background:var(--nav);border-bottom:1px solid var(--border);
-  padding:12px 16px;z-index:199;backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);}
-.mob-nav.open{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-.mob-nb{background:none;border:1px solid var(--border);border-radius:4px;
-  color:var(--text2);font-family:'DM Mono',monospace;font-size:11px;
-  letter-spacing:0.04em;padding:9px 12px;cursor:pointer;
-  text-align:left;transition:all .15s;display:flex;align-items:center;gap:8px;}
-.mob-nb:hover{border-color:var(--border2);color:var(--text);background:var(--bg3);}
-.mob-nb.on{border-color:var(--accent);color:var(--accent);background:var(--adim);}
-.mob-nb-icon{font-size:14px;flex-shrink:0;}
-
-@media(max-width:600px){
-  .nr{display:none;}
-  .ham{display:flex;}
-}
-@media(min-width:601px){
-  .mob-nav{display:none !important;}
-}
-/* ── RESPONSIVE ── */
-@media(min-width:1200px){
-  .w,.hw{max-width:860px;}
-  .ni{max-width:1100px;}
-}
-
-/* Tablet landscape */
-@media(max-width:900px){
-  .ng{grid-template-columns:1fr 1fr;}
-  .cg{grid-template-columns:1fr 1fr;}
-}
-
-/* Tablet portrait */
+/* MOBILE */
 @media(max-width:700px){
-  .hw{padding:60px 20px 60px;}
-  .w{padding:0 20px;}
-  .hero-row{flex-direction:column;align-items:flex-start;gap:16px;}
-  .hero-row svg{width:68px;height:98px;}
-  h1{font-size:clamp(26px,7vw,38px);}
-  .tline{font-size:11.5px;}
-  .bio{font-size:12.5px;}
-  .crow{gap:6px;}
-  .btn{font-size:10.5px;padding:6px 12px;}
-  .ng{grid-template-columns:1fr 1fr;gap:8px;}
-  .nc{padding:10px 12px;}
-  .nv{font-size:11px;}
-  .pi{grid-template-columns:1fr;}
-  .pb{justify-self:start;margin-top:0;margin-bottom:6px;}
-  .pn{font-size:13.5px;}
-  .ei,.edi{grid-template-columns:1fr;gap:6px;}
-  .ed{font-size:10px;margin-bottom:2px;}
+  .hero-row{flex-direction:column;align-items:flex-start;gap:12px;}
+  .ng{grid-template-columns:1fr 1fr;}
+  .pi{grid-template-columns:1fr;}.pb{justify-self:start;}
+  .ei,.edi{grid-template-columns:1fr;gap:4px;}
   .cg{grid-template-columns:1fr 1fr;}
   .cgr{grid-template-columns:1fr;}
-  .paper-meta-grid{grid-template-columns:1fr;}
-  .paper-title{font-size:14px;}
-  .paper-card{padding:20px 18px;}
-  .ch2{font-size:clamp(24px,6vw,34px);}
-  .blob-wrap{height:160px;}
-  .blob-text{font-size:13px;}
-  /* nav — show 6 icons, hide less used */
   .nb{font-size:13px;width:30px;height:30px;}
-  .ni{padding:0 14px;}
-  .ts-lbl{display:none;}
+  h1{font-size:28px;}
+  .paper-meta-grid{grid-template-columns:1fr;}
 }
-
-/* Mobile */
-@media(max-width:480px){
-  .hw{padding:52px 16px 52px;}
-  .w{padding:0 16px;}
-  h1{font-size:clamp(24px,8vw,34px);}
-  .crow{gap:5px;}
-  .btn{font-size:10px;padding:6px 10px;}
-  .ng{grid-template-columns:1fr 1fr;gap:7px;}
-  .cg{grid-template-columns:1fr 1fr;}
-  .irow{gap:5px;}
-  .ic{font-size:10px;padding:3px 7px;}
-  .nb{font-size:12px;width:28px;height:28px;}
-  /* hide research + wins icons on very small, show in hamburger */
-  .paper-links{flex-direction:column;}
-  .paper-link{justify-content:center;}
-  .cgr{grid-template-columns:1fr;}
-  .ecp{font-size:11.5px;flex-wrap:wrap;gap:6px;}
-  .sl{margin-bottom:22px;}
-  .nowt{margin-top:28px;}
-  .plk{flex-wrap:wrap;gap:8px;}
-  .oslk{flex-wrap:wrap;}
-  .future-chips{gap:5px;}
-  .fchip{font-size:10px;padding:2px 7px;}
-  .blob-wrap{height:140px;margin:24px 0;}
-}
-
-/* Small mobile */
-@media(max-width:360px){
-  h1{font-size:24px;}
-  .cg{grid-template-columns:1fr;}
-  .ng{grid-template-columns:1fr;}
-  .nb{font-size:11px;width:26px;height:26px;}
-  .btn{font-size:9.5px;padding:5px 9px;}
-}
-
-/* Touch devices — remove hover effects that feel odd */
-@media(hover:none){
-  .nb::after{display:none;}
-  .btn:hover{border-color:var(--border2);color:var(--text2);}
-  .btn.p:hover{opacity:1;}
-  .cc:hover{transform:none;}
-}
+@media(max-width:420px){.cg{grid-template-columns:1fr;}.ng{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -447,9 +336,6 @@ h1 em{font-style:italic;color:var(--accent);}
 <nav>
   <div class="ni">
     <a href="#" class="logo" onclick="go('home');return false;">MR<b>.</b></a>
-    <button class="ham" id="ham" onclick="toggleMob()" aria-label="menu">
-      <span></span><span></span><span></span>
-    </button>
     <div class="nr">
       <button class="nb on" id="nb-home"     onclick="go('home')"     data-tip="home">⌂</button>
       <button class="nb"    id="nb-projects" onclick="go('projects')" data-tip="projects">◈</button>
@@ -467,18 +353,6 @@ h1 em{font-style:italic;color:var(--accent);}
     </div>
   </div>
 </nav>
-
-<!-- MOBILE NAV DRAWER -->
-<div class="mob-nav" id="mob-nav">
-  <button class="mob-nb on" id="mnb-home"     onclick="go('home');toggleMob()"><span class="mob-nb-icon">⌂</span>home</button>
-  <button class="mob-nb"    id="mnb-projects" onclick="go('projects');toggleMob()"><span class="mob-nb-icon">◈</span>projects</button>
-  <button class="mob-nb"    id="mnb-exp"      onclick="go('exp');toggleMob()"><span class="mob-nb-icon">◎</span>experience</button>
-  <button class="mob-nb"    id="mnb-os"       onclick="go('os');toggleMob()"><span class="mob-nb-icon">⌥</span>open source</button>
-  <button class="mob-nb"    id="mnb-research" onclick="go('research');toggleMob()"><span class="mob-nb-icon">⬡</span>research</button>
-  <button class="mob-nb"    id="mnb-wins"     onclick="go('wins');toggleMob()"><span class="mob-nb-icon">⊕</span>certifications</button>
-  <button class="mob-nb"    id="mnb-write"    onclick="go('write');toggleMob()"><span class="mob-nb-icon">✦</span>writing</button>
-  <button class="mob-nb"    id="mnb-con"      onclick="go('con');toggleMob()"><span class="mob-nb-icon">◉</span>contact</button>
-</div>
 
 <!-- HOME -->
 <div id="pg-home" class="pg on">
@@ -516,12 +390,11 @@ h1 em{font-style:italic;color:var(--accent);}
       <p class="tline">// Engineer by day, philosopher by night.</p>
     </div>
   </div>
-
   <p class="bio">
     <span>CS student at KIIT.</span> I build AI systems, publish research, and contribute to open source. Currently making things that are either useful or interesting — sometimes both. Outside code: philosophy, music, and too much coffee.
   </p>
   <div class="crow">
-    <a href="#" class="btn p" onclick="go('con');return false;">→ get in touch</a>
+    <a href="#" class="btn p" onclick="go('con');return false;">get in touch</a>
     <a href="#" class="btn" onclick="go('projects');return false;">projects</a>
     <a href="https://github.com/manas-raj999" target="_blank" class="btn">github ↗</a>
     <a href="https://linkedin.com/in/manas-raj-82977a2a6" target="_blank" class="btn">linkedin ↗</a>
@@ -561,68 +434,13 @@ h1 em{font-style:italic;color:var(--accent);}
 <div class="w">
   <div class="sl"><span class="sn">02</span><span class="st">Projects</span><div class="sli"></div></div>
   <div class="pl">
-    <div class="pi">
-      <div>
-        <div class="pn">Scam Honeypot — Dual-Agent Social Engineering Trap</div>
-        <div class="pd">A defensive AI system that lures scammers using a Gemini-powered "confused elderly victim" agent (Ramesh, 62) while a silent analyst extracts intelligence — UPI IDs, phishing links, bank details. Auto-reports when jackpot criteria are met. Built for GUVI Agentic AI Hackathon.</div>
-        <div class="tags"><span class="tg hi">Python</span><span class="tg hi">FastAPI</span><span class="tg hi">Gemini API</span><span class="tg">Dual-Agent</span><span class="tg">Pydantic</span><span class="tg">Security</span></div>
-        <div class="plk"><a href="#" target="_blank">github →</a><a href="#" target="_blank">demo →</a></div>
-      </div>
-      <span class="pb bs">Security</span>
-    </div>
-    <div class="pi">
-      <div>
-        <div class="pn">Aadhaar Insights: Societal Trends Analytics</div>
-        <div class="pd">UIDAI Hackathon — analyzed Aadhaar enrolment datasets to uncover regional trends, anomalies, and predictive indicators. Dashboards supporting data-driven policy decisions at national scale.</div>
-        <div class="tags"><span class="tg hi">Python</span><span class="tg hi">Pandas</span><span class="tg">NumPy</span><span class="tg">Matplotlib</span></div>
-        <div class="plk"><a href="#" target="_blank">github →</a><a href="#" target="_blank">case study →</a></div>
-      </div>
-      <span class="pb bh">Hackathon</span>
-    </div>
-    <div class="pi">
-      <div>
-        <div class="pn">AWS VPC Automation</div>
-        <div class="pd">Reusable Terraform modules automating secure VPC provisioning — subnets, route tables, gateways. Zero-touch deployment via GitHub Actions + AWS Secrets Manager.</div>
-        <div class="tags"><span class="tg hi">Terraform</span><span class="tg hi">AWS</span><span class="tg">GitHub Actions</span><span class="tg">IaC</span></div>
-        <div class="plk"><a href="#" target="_blank">github →</a></div>
-      </div>
-      <span class="pb bi">Infra</span>
-    </div>
-    <div class="pi">
-      <div>
-        <div class="pn">Smart MICE Management Platform</div>
-        <div class="pd">Voyage Hackathon — AI-driven platform optimizing corporate event bookings, venue allocation and pricing. Recommendation engine forecasting demand and improving hotel revenue.</div>
-        <div class="tags"><span class="tg hi">Python</span><span class="tg">AI/ML</span><span class="tg">Dashboards</span></div>
-        <div class="plk"><a href="#" target="_blank">github →</a><a href="#" target="_blank">demo →</a></div>
-      </div>
-      <span class="pb ba">AI</span>
-    </div>
-    <div class="pi">
-      <div>
-        <div class="pn">TimeLeak <span style="font-size:10.5px;color:var(--text3);font-weight:300;">— in progress</span></div>
-        <div class="pd">"Fitbit for Attention" — Android app using UsageStats API to detect micro-distraction patterns. Tracks when you open Instagram 14 times a day for 2 mins each. Kotlin + Jetpack Compose.</div>
-        <div class="tags"><span class="tg hi">Kotlin</span><span class="tg hi">Jetpack Compose</span><span class="tg">MVVM</span><span class="tg">Room DB</span><span class="tg">Hilt</span></div>
-        <div class="plk"><a href="#" target="_blank">github →</a></div>
-      </div>
-      <span class="pb bw">Android</span>
-    </div>
-    <div class="pi">
-      <div>
-        <div class="pn">StudyStack <span style="font-size:10.5px;color:var(--text3);font-weight:300;">— hackathon build</span></div>
-        <div class="pd">Multiplayer study platform — live rooms, AI tutor via Claude API, XP/streak system, leaderboards. Polar × Lovable 2026 competing for $10,000 MRR prize.</div>
-        <div class="tags"><span class="tg hi">Lovable</span><span class="tg hi">Claude API</span><span class="tg">Supabase</span><span class="tg">Polar</span></div>
-        <div class="plk"><a href="#" target="_blank">live →</a><a href="#" target="_blank">github →</a></div>
-      </div>
-      <span class="pb bh">Hackathon</span>
-    </div>
-    <div class="pi" style="opacity:0.28;">
-      <div>
-        <div class="pn">[Next project]</div>
-        <div class="pd">Add your next build here.</div>
-        <div class="tags"><span class="tg">coming soon</span></div>
-      </div>
-      <span class="pb bw">Soon</span>
-    </div>
+    <div class="pi"><div><div class="pn">Scam Honeypot — Dual-Agent Social Engineering Trap</div><div class="pd">A defensive AI system that lures scammers using a Gemini-powered "confused elderly victim" agent (Ramesh, 62) while a silent analyst extracts intelligence — UPI IDs, phishing links, bank details. Auto-reports when jackpot criteria are met. Built for GUVI Agentic AI Hackathon.</div><div class="tags"><span class="tg hi">Python</span><span class="tg hi">FastAPI</span><span class="tg hi">Gemini API</span><span class="tg">Dual-Agent</span><span class="tg">Pydantic</span><span class="tg">Security</span></div><div class="plk"><a href="#" target="_blank">github →</a><a href="#" target="_blank">demo →</a></div></div><span class="pb bs">Security</span></div>
+    <div class="pi"><div><div class="pn">Aadhaar Insights: Societal Trends Analytics</div><div class="pd">UIDAI Hackathon — analyzed Aadhaar enrolment datasets to uncover regional trends, anomalies, and predictive indicators. Dashboards supporting data-driven policy decisions at national scale.</div><div class="tags"><span class="tg hi">Python</span><span class="tg hi">Pandas</span><span class="tg">NumPy</span><span class="tg">Matplotlib</span></div><div class="plk"><a href="#" target="_blank">github →</a><a href="#" target="_blank">case study →</a></div></div><span class="pb bh">Hackathon</span></div>
+    <div class="pi"><div><div class="pn">AWS VPC Automation</div><div class="pd">Reusable Terraform modules automating secure VPC provisioning — subnets, route tables, gateways. Zero-touch deployment via GitHub Actions + AWS Secrets Manager.</div><div class="tags"><span class="tg hi">Terraform</span><span class="tg hi">AWS</span><span class="tg">GitHub Actions</span><span class="tg">IaC</span></div><div class="plk"><a href="#" target="_blank">github →</a></div></div><span class="pb bi">Infra</span></div>
+    <div class="pi"><div><div class="pn">Smart MICE Management Platform</div><div class="pd">Voyage Hackathon — AI-driven platform optimizing corporate event bookings, venue allocation and pricing. Recommendation engine forecasting demand and improving hotel revenue.</div><div class="tags"><span class="tg hi">Python</span><span class="tg">AI/ML</span><span class="tg">Dashboards</span></div><div class="plk"><a href="#" target="_blank">github →</a><a href="#" target="_blank">demo →</a></div></div><span class="pb ba">AI</span></div>
+    <div class="pi"><div><div class="pn">TimeLeak <span style="font-size:10.5px;color:var(--text3);font-weight:300;">— in progress</span></div><div class="pd">"Fitbit for Attention" — Android app using UsageStats API to detect micro-distraction patterns. Tracks when you open Instagram 14 times a day for 2 mins each. Kotlin + Jetpack Compose.</div><div class="tags"><span class="tg hi">Kotlin</span><span class="tg hi">Jetpack Compose</span><span class="tg">MVVM</span><span class="tg">Room DB</span><span class="tg">Hilt</span></div><div class="plk"><a href="#" target="_blank">github →</a></div></div><span class="pb bw">Android</span></div>
+    <div class="pi"><div><div class="pn">StudyStack <span style="font-size:10.5px;color:var(--text3);font-weight:300;">— hackathon build</span></div><div class="pd">Multiplayer study platform — live rooms, AI tutor via Claude API, XP/streak system, leaderboards. Polar × Lovable 2026 competing for $10,000 MRR prize.</div><div class="tags"><span class="tg hi">Lovable</span><span class="tg hi">Claude API</span><span class="tg">Supabase</span><span class="tg">Polar</span></div><div class="plk"><a href="#" target="_blank">live →</a><a href="#" target="_blank">github →</a></div></div><span class="pb bh">Hackathon</span></div>
+    <div class="pi" style="opacity:0.28;"><div><div class="pn">[Next project]</div><div class="pd">Add your next build here.</div><div class="tags"><span class="tg">coming soon</span></div></div><span class="pb bw">Soon</span></div>
   </div>
 </div>
 <div class="ft"><span>2026 – Present © Manas Raj</span></div>
@@ -667,12 +485,9 @@ h1 em{font-style:italic;color:var(--accent);}
     <div class="future-title">Not yet — but actively looking. 🎯</div>
     <div class="future-sub">Building at the intersection of AI and systems. Currently working on agentic AI projects, contributing to open source, and publishing research — looking for opportunities where I can work on things that actually matter. If that sounds like your team, let's talk.</div>
     <div class="future-chips">
-      <span class="fchip">AI / ML Engineering</span>
-      <span class="fchip">Agentic Systems</span>
-      <span class="fchip">AI Infrastructure</span>
-      <span class="fchip">Backend Engineering</span>
-      <span class="fchip">Research Engineering</span>
-      <span class="fchip">Open to Relocation</span>
+      <span class="fchip">AI / ML Engineering</span><span class="fchip">Agentic Systems</span>
+      <span class="fchip">AI Infrastructure</span><span class="fchip">Backend Engineering</span>
+      <span class="fchip">Research Engineering</span><span class="fchip">Open to Relocation</span>
     </div>
   </div>
   <div class="sl" style="margin-top:36px;margin-bottom:12px;"><span class="st" style="font-size:9.5px;color:var(--text3);">Education</span><div class="sli"></div></div>
@@ -838,7 +653,7 @@ h1 em{font-style:italic;color:var(--accent);}
     <a href="https://x.com/manas_raj_" target="_blank" class="cl"><span class="cico">𝕏</span><div><span class="clb">Twitter / X</span><span class="clv">@manas_raj_</span></div></a>
   </div>
   <div class="ecp" onclick="ce()">
-    <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f4839b869fda99959a9587da86959eb49399959d98da979b99">[email&#160;protected]</a></span>
+    <span>work.manas.raj@gmail.com</span>
     <span class="ch">[ click to copy ]</span>
     <span class="cpd" id="cpd">&#x2713; copied</span>
   </div>
@@ -846,34 +661,15 @@ h1 em{font-style:italic;color:var(--accent);}
 <div class="ft"><span>2026 – Present © Manas Raj</span> · Built with intention.</div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-var mobOpen=false;
-function toggleMob(){
-  mobOpen=!mobOpen;
-  document.getElementById('ham').classList.toggle('open',mobOpen);
-  document.getElementById('mob-nav').classList.toggle('open',mobOpen);
-}
-// close drawer on outside click
-document.addEventListener('click',function(e){
-  if(mobOpen && !e.target.closest('#mob-nav') && !e.target.closest('#ham')){
-    mobOpen=false;
-    document.getElementById('ham').classList.remove('open');
-    document.getElementById('mob-nav').classList.remove('open');
-  }
-});
-
+<script>
 var pgs=['home','projects','exp','os','research','wins','write','con'];
 function go(id){
   pgs.forEach(function(p){
     document.getElementById('pg-'+p).classList.remove('on');
     document.getElementById('nb-'+p).classList.remove('on');
-    var mn=document.getElementById('mnb-'+p);
-    if(mn)mn.classList.remove('on');
   });
   document.getElementById('pg-'+id).classList.add('on');
   document.getElementById('nb-'+id).classList.add('on');
-  var mn=document.getElementById('mnb-'+id);
-  if(mn)mn.classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function tt(){
@@ -908,33 +704,30 @@ function initBlob(){
   var N=6;
   var pts=[];
   for(var i=0;i<N;i++){
-    pts.push({
-      angle:(i/N)*Math.PI*2,r:0,
-      speed:0.004+Math.random()*0.003,
-      offset:Math.random()*Math.PI*2,
-      amp:30+Math.random()*40
-    });
+    pts.push({angle:(i/N)*Math.PI*2,r:0,speed:0.004+Math.random()*0.003,offset:Math.random()*Math.PI*2,amp:30+Math.random()*40});
   }
   var t=0;
   if(animId)cancelAnimationFrame(animId);
   function draw(){
     animId=requestAnimationFrame(draw);
     var W=canvas.width,H=canvas.height;
-    ctx.clearRect(0,0,W,H);
-    t+=0.008;
+    ctx.clearRect(0,0,W,H);t+=0.008;
     var cx=W/2,cy=H/2,baseR=Math.min(W,H)*0.28;
     ctx.beginPath();
     pts.forEach(function(p,i){
       p.r=baseR+Math.sin(t*p.speed*180+p.offset)*p.amp;
-      var x=cx+Math.cos(p.angle)*p.r;
-      var y=cy+Math.sin(p.angle)*p.r;
+      var x=cx+Math.cos(p.angle)*p.r,y=cy+Math.sin(p.angle)*p.r;
       if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
     });
     ctx.closePath();
     var g1=ctx.createRadialGradient(cx-40,cy-30,10,cx,cy,baseR+60);
-    if(dark){
-      g1.addColorStop(0,'rgba(200,240,90,0.18)');
-      g1.addColorStop(0.5,'rgba(180,220,60,0.08)');
-      g1.addColorStop(1,'rgba(50,80,20,0.01)');
-    } else {
-      g1.addColorStop(0,'rgba(58,107,20,0.1
+    if(dark){g1.addColorStop(0,'rgba(200,240,90,0.18)');g1.addColorStop(0.5,'rgba(180,220,60,0.08)');g1.addColorStop(1,'rgba(50,80,20,0.01)');}
+    else{g1.addColorStop(0,'rgba(58,107,20,0.14)');g1.addColorStop(0.5,'rgba(80,140,30,0.06)');g1.addColorStop(1,'rgba(120,180,50,0.01)');}
+    ctx.fillStyle=g1;ctx.fill();
+  }
+  draw();
+}
+window.addEventListener('load',initBlob);
+</script>
+</body>
+</html>
