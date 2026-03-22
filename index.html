@@ -27,7 +27,7 @@
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;
   font-size:13.5px;line-height:1.75;transition:background 0.32s,color 0.32s;
-  min-height:100vh;cursor:none;overflow-x:hidden;}
+  min-height:100vh;overflow-x:hidden;}
 #cur{width:7px;height:7px;background:var(--accent);border-radius:50%;
   position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
 #cur-r{width:28px;height:28px;border:1px solid var(--accent);opacity:0.25;border-radius:50%;
@@ -796,8 +796,18 @@ h1 em{font-style:italic;color:var(--accent);}
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const cur=document.getElementById('cur'),ring=document.getElementById('cur-r');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+let mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my;
+let cursorActive=false;
+cur.style.opacity='0';ring.style.opacity='0';
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+  if(!cursorActive){
+    cursorActive=true;
+    document.body.style.cursor='none';
+    cur.style.opacity='1';ring.style.opacity='0.25';
+  }
+});
 (function a(){rx+=(mx-rx)*0.11;ry+=(my-ry)*0.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
 
 const pgs=['home','projects','exp','os','research','wins','write','con'];
