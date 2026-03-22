@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manas Raj</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root[data-theme="dark"]{
+  --bg:#131110;--bg2:#1a1815;--bg3:#211e1a;
+  --border:#2b2724;--border2:#36312c;
+  --text:#ede8e2;--text2:#8a8078;--text3:#4a4540;
+  --accent:#c8f05a;--adim:rgba(200,240,90,0.07);
+  --card:#1a1815;--hover:#1f1c18;
+  --nav:rgba(19,17,16,0.95);
+}
+:root[data-theme="light"]{
+  --bg:#f5f2eb;--bg2:#ede9e1;--bg3:#e4e0d6;
+  --border:#d8d3c9;--border2:#cac5ba;
+  --text:#161412;--text2:#68635b;--text3:#a8a39b;
+  --accent:#3a6b14;--adim:rgba(58,107,20,0.07);
+  --card:#ede9e1;--hover:#e5e1d7;
+  --nav:rgba(245,242,235,0.95);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;
+  font-size:13.5px;line-height:1.75;transition:background 0.32s,color 0.32s;
+  min-height:100vh;cursor:none;overflow-x:hidden;}
+#cur{width:7px;height:7px;background:var(--accent);border-radius:50%;
+  position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#cur-r{width:28px;height:28px;border:1px solid var(--accent);opacity:0.25;border-radius:50%;
+  position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
+  transition:width .18s,height .18s;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav);
+  border-bottom:1px solid var(--border);backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);height:50px;}
+.ni{max-width:980px;margin:0 auto;padding:0 22px;height:100%;
+  display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:'Instrument Serif',serif;font-size:17px;color:var(--text);
+  text-decoration:none;letter-spacing:-0.3px;cursor:none;}
+.logo b{color:var(--accent);font-weight:400;}
+.nr{display:flex;align-items:center;gap:2px;flex-wrap:nowrap;}
+/* icon nav */
+.nb{position:relative;background:none;border:none;color:var(--text3);
+  font-size:16px;width:34px;height:34px;display:flex;align-items:center;
+  justify-content:center;border-radius:6px;cursor:none;transition:all .15s;}
+.nb:hover{color:var(--text);background:var(--bg3);}
+.nb.on{color:var(--accent);background:var(--adim);}
+.nb::after{content:attr(data-tip);position:absolute;bottom:-30px;left:50%;
+  transform:translateX(-50%);background:var(--bg3);border:1px solid var(--border2);
+  color:var(--text2);font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:0.05em;padding:3px 8px;border-radius:3px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .15s;z-index:300;}
+.nb:hover::after{opacity:1;}
+.sep{display:none;}
+.ts-wrap{display:flex;align-items:center;gap:5px;margin-left:6px;
+  padding-left:10px;border-left:1px solid var(--border);}
+.ts-lbl{font-size:9px;color:var(--text3);letter-spacing:0.05em;transition:color .2s;}
+.ts-lbl.on{color:var(--text2);}
+.ts{position:relative;width:32px;height:18px;cursor:none;flex-shrink:0;}
+.ts input{opacity:0;width:0;height:0;position:absolute;}
+.ts-sl{position:absolute;inset:0;background:var(--bg3);border:1px solid var(--border2);
+  border-radius:20px;transition:all .25s;}
+.ts-sl::before{content:'';position:absolute;height:11px;width:11px;left:3px;top:50%;
+  transform:translateY(-50%);background:var(--text3);border-radius:50%;transition:all .25s;}
+.ts input:checked+.ts-sl{background:var(--adim);border-color:var(--accent);}
+.ts input:checked+.ts-sl::before{transform:translate(14px,-50%);background:var(--accent);}
+
+/* PAGE */
+.pg{display:none;padding-top:50px;min-height:100vh;animation:pgin .32s ease both;}
+.pg.on{display:block;}
+@keyframes pgin{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.w{max-width:760px;margin:0 auto;padding:0 28px;}
+
+/* SEC LABEL */
+.sl{display:flex;align-items:center;gap:10px;margin-bottom:32px;}
+.sn{font-size:10px;color:var(--text3);letter-spacing:0.1em;}
+.st{font-family:'Syne',sans-serif;font-size:10.5px;font-weight:700;
+  letter-spacing:0.15em;text-transform:uppercase;color:var(--text2);}
+.sli{flex:1;height:1px;background:var(--border);}
+.tg{padding:2px 7px;background:var(--bg3);border:1px solid var(--border2);
+  border-radius:2px;font-size:10.5px;color:var(--text3);transition:all .15s;}
+.tg:hover,.tg.hi{border-color:var(--accent);color:var(--accent);background:var(--adim);}
+.tags{display:flex;flex-wrap:wrap;gap:5px;}
+.ft{padding:28px;text-align:center;border-top:1px solid var(--border);
+  font-size:10.5px;color:var(--text3);letter-spacing:0.07em;}
+.ft span{color:var(--text2);}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+
+/* BLOB */
+.blob-wrap{position:relative;width:100%;height:190px;margin:32px 0;
+  overflow:hidden;border-radius:10px;border:1px solid var(--border);}
+.blob-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.blob-overlay{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:9px;z-index:2;}
+.blob-text{font-family:'Instrument Serif',serif;font-style:italic;
+  font-size:clamp(14px,2.2vw,20px);color:var(--text);text-align:center;
+  letter-spacing:0.01em;opacity:0.9;line-height:1.4;}
+.blob-text em{color:var(--accent);font-style:normal;}
+.blob-sub{font-size:10px;color:var(--text2);letter-spacing:0.08em;text-transform:uppercase;}
+
+/* HOME */
+.hw{max-width:760px;margin:0 auto;padding:72px 28px 80px;}
+.htag{display:inline-flex;align-items:center;gap:7px;font-size:10px;
+  color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;}
+.htag::before{content:'';width:14px;height:1px;background:var(--accent);}
+.dot{width:5px;height:5px;background:var(--accent);border-radius:50%;
+  display:inline-block;animation:bl 2.2s infinite;}
+@keyframes bl{0%,100%{opacity:1;}50%{opacity:0.15;}}
+h1{font-family:'Instrument Serif',serif;font-size:clamp(30px,5vw,50px);
+  font-weight:400;line-height:1.08;letter-spacing:-0.8px;color:var(--text);margin-bottom:5px;}
+h1 em{font-style:italic;color:var(--accent);}
+.tline{font-family:'DM Mono',monospace;font-style:italic;font-size:12.5px;
+  color:var(--text2);letter-spacing:0.01em;margin-bottom:20px;}
+.bio{font-size:13px;color:var(--text2);line-height:1.85;max-width:520px;margin-bottom:24px;}
+.bio span{color:var(--text);}
+.crow{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:26px;}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:3px;
+  font-family:'DM Mono',monospace;font-size:11px;text-decoration:none;cursor:none;
+  transition:all .18s;letter-spacing:0.03em;border:1px solid var(--border2);
+  color:var(--text2);background:none;}
+.btn:hover{border-color:var(--text2);color:var(--text);}
+.btn.p{background:var(--accent);border-color:var(--accent);color:#131110;font-weight:500;}
+.btn.p:hover{opacity:0.85;}
+.irow{display:flex;flex-wrap:wrap;gap:6px;padding-top:22px;border-top:1px solid var(--border);}
+.ic{padding:3px 9px;border:1px solid var(--border2);border-radius:2px;
+  font-size:10.5px;color:var(--text3);letter-spacing:0.04em;transition:all .15s;}
+.ic:hover{color:var(--accent);border-color:var(--accent);}
+.nowt{font-size:10px;color:var(--text3);letter-spacing:0.1em;
+  text-transform:uppercase;margin-bottom:12px;margin-top:36px;}
+.ng{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
+.nc{padding:12px 14px;border:1px solid var(--border);border-radius:4px;
+  background:var(--card);transition:all .18s;}
+.nc:hover{border-color:var(--border2);background:var(--hover);}
+.nl{font-size:9.5px;color:var(--text3);letter-spacing:0.09em;text-transform:uppercase;margin-bottom:3px;}
+.nv{font-size:12px;color:var(--text);}
+.ns{font-size:10.5px;color:var(--text2);margin-top:2px;}
+
+/* PROJECTS */
+#pg-projects .w{padding-top:52px;padding-bottom:80px;}
+.pl{display:flex;flex-direction:column;}
+.pi{padding:22px 0;border-bottom:1px solid var(--border);
+  display:grid;grid-template-columns:1fr 74px;gap:16px;align-items:start;cursor:none;}
+.pi:first-child{border-top:1px solid var(--border);}
+.pi:hover .pn{color:var(--accent);}
+.pb{font-size:9px;padding:3px 7px;border-radius:2px;letter-spacing:0.09em;
+  text-transform:uppercase;font-weight:700;white-space:nowrap;
+  text-align:right;justify-self:end;margin-top:2px;}
+.bh{background:rgba(200,240,90,0.08);color:var(--accent);border:1px solid rgba(200,240,90,0.18);}
+.bi{background:rgba(96,165,250,0.08);color:#60a5fa;border:1px solid rgba(96,165,250,0.18);}
+.ba{background:rgba(251,191,36,0.08);color:#fbbf24;border:1px solid rgba(251,191,36,0.18);}
+.bw{background:rgba(167,139,250,0.08);color:#a78bfa;border:1px solid rgba(167,139,250,0.18);}
+.bs{background:rgba(251,113,133,0.08);color:#fb7185;border:1px solid rgba(251,113,133,0.18);}
+.pn{font-family:'Syne',sans-serif;font-size:14.5px;font-weight:700;
+  color:var(--text);margin-bottom:6px;transition:color .15s;letter-spacing:-0.2px;}
+.pd{font-size:12.5px;color:var(--text2);line-height:1.8;margin-bottom:10px;}
+.plk{display:flex;gap:12px;margin-top:8px;}
+.plk a{font-size:10.5px;color:var(--text3);text-decoration:none;
+  letter-spacing:0.04em;transition:color .15s;cursor:none;}
+.plk a:hover{color:var(--accent);}
+
+/* EXPERIENCE */
+#pg-exp .w{padding-top:52px;padding-bottom:80px;}
+.ei{display:grid;grid-template-columns:118px 1fr;gap:20px;
+  padding:22px 0;border-bottom:1px solid var(--border);}
+.ei:first-of-type{border-top:1px solid var(--border);}
+.edi{display:grid;grid-template-columns:118px 1fr;gap:20px;
+  padding:22px 0;border-bottom:1px solid var(--border);}
+.ed{font-size:10.5px;color:var(--text3);line-height:1.6;padding-top:3px;}
+.er{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.eo{font-size:11.5px;color:var(--accent);margin-bottom:3px;}
+.etype{display:inline-block;font-size:9px;padding:2px 7px;border-radius:2px;
+  border:1px solid var(--border2);color:var(--text3);letter-spacing:0.07em;
+  text-transform:uppercase;margin-bottom:9px;}
+.ebl{list-style:none;margin-top:5px;}
+.ebl li{font-size:12px;color:var(--text2);padding:2px 0 2px 14px;position:relative;line-height:1.7;}
+.ebl li::before{content:'▸';position:absolute;left:0;color:var(--text3);font-size:9px;top:5px;}
+.edeg{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.esch{font-size:11.5px;color:var(--accent);margin-bottom:5px;}
+.edt{font-size:12px;color:var(--text2);line-height:1.7;}
+.future-card{padding:22px 24px;border:1px dashed var(--border2);
+  border-radius:6px;background:var(--card);margin-top:4px;}
+.future-title{font-family:'Syne',sans-serif;font-size:13.5px;font-weight:700;
+  color:var(--text2);margin-bottom:6px;}
+.future-sub{font-size:12px;color:var(--text3);line-height:1.8;margin-bottom:14px;}
+.future-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.fchip{padding:3px 9px;border:1px solid var(--border2);border-radius:2px;
+  font-size:10.5px;color:var(--text3);transition:all .15s;}
+.fchip:hover{border-color:var(--accent);color:var(--accent);}
+
+/* OPEN SOURCE */
+#pg-os .w{padding-top:52px;padding-bottom:80px;}
+.os-intro{font-size:13px;color:var(--text2);line-height:1.85;max-width:500px;margin-bottom:32px;}
+.os-intro span{color:var(--text);}
+.osl{display:flex;flex-direction:column;}
+.osi{padding:22px 0;border-bottom:1px solid var(--border);cursor:none;}
+.osi:first-child{border-top:1px solid var(--border);}
+.osi:hover .osn{color:var(--accent);}
+.os-top{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;}
+.osn{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;
+  color:var(--text);margin-bottom:4px;transition:color .15s;}
+.osr{font-size:11px;color:var(--accent);margin-bottom:7px;font-family:'DM Mono',monospace;}
+.osd{font-size:12.5px;color:var(--text2);line-height:1.8;margin-bottom:10px;}
+.os-badge{font-size:9.5px;color:#34d399;letter-spacing:0.07em;padding:3px 8px;
+  border-radius:2px;background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.18);
+  white-space:nowrap;margin-top:2px;}
+.oslk{display:flex;gap:12px;margin-top:8px;align-items:center;}
+.oslk a{font-size:10.5px;color:var(--text3);text-decoration:none;
+  letter-spacing:0.04em;transition:color .15s;cursor:none;}
+.oslk a:hover{color:var(--accent);}
+/* subtle pr pill */
+.pr-pill{display:inline-flex;align-items:center;gap:4px;
+  font-size:9.5px;color:var(--text3);letter-spacing:0.03em;
+  padding:2px 6px;border:1px solid var(--border2);border-radius:2px;
+  text-decoration:none;transition:all .15s;cursor:none;}
+.pr-pill:hover{color:var(--accent);border-color:var(--accent);}
+.pr-num{font-size:9px;opacity:0.7;}
+
+/* RESEARCH */
+#pg-research .w{padding-top:52px;padding-bottom:80px;}
+.res-intro{font-size:13px;color:var(--text2);line-height:1.85;max-width:540px;margin-bottom:36px;}
+.res-intro span{color:var(--text);}
+.paper-card{border:1px solid var(--border);border-radius:8px;background:var(--card);
+  padding:28px 28px 24px;margin-bottom:16px;transition:all .2s;border-left:3px solid var(--accent);}
+.paper-card:hover{border-color:var(--accent);background:var(--hover);}
+.paper-status{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;color:#34d399;
+  letter-spacing:0.08em;text-transform:uppercase;padding:3px 9px;border-radius:2px;
+  background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.18);margin-bottom:14px;}
+.paper-dot{width:5px;height:5px;background:#34d399;border-radius:50%;animation:bl 2s infinite;}
+.paper-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;
+  color:var(--text);line-height:1.4;margin-bottom:10px;letter-spacing:-0.2px;}
+.paper-conf{font-size:12px;color:var(--accent);margin-bottom:6px;font-family:'DM Mono',monospace;}
+.paper-venue{font-size:11.5px;color:var(--text2);margin-bottom:16px;line-height:1.6;}
+.paper-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;
+  padding:16px;background:var(--bg3);border-radius:5px;border:1px solid var(--border);}
+.paper-meta-label{font-size:9.5px;color:var(--text3);letter-spacing:0.09em;
+  text-transform:uppercase;margin-bottom:3px;}
+.paper-meta-val{font-size:12px;color:var(--text);line-height:1.5;}
+.paper-authors{font-size:12px;color:var(--text2);line-height:1.8;margin-bottom:16px;
+  padding:12px 14px;border-left:2px solid var(--border2);}
+.paper-authors span{color:var(--accent);}
+.paper-links{display:flex;gap:10px;flex-wrap:wrap;}
+.paper-link{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;
+  border:1px solid var(--border2);border-radius:3px;font-size:11px;color:var(--text2);
+  text-decoration:none;font-family:'DM Mono',monospace;letter-spacing:0.04em;
+  transition:all .18s;cursor:none;}
+.paper-link:hover{border-color:var(--accent);color:var(--accent);}
+.paper-link.primary{background:var(--accent);border-color:var(--accent);
+  color:#131110;font-weight:500;}
+.paper-link.primary:hover{opacity:0.85;}
+.res-placeholder{border:1px dashed var(--border2);border-radius:8px;
+  padding:24px;opacity:0.35;margin-top:4px;}
+.res-placeholder-t{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;
+  color:var(--text2);margin-bottom:6px;}
+.res-placeholder-s{font-size:11.5px;color:var(--text3);}
+
+/* CERTS */
+#pg-wins .w{padding-top:52px;padding-bottom:80px;}
+.cert-intro{font-size:12px;color:var(--text3);font-style:italic;
+  margin-bottom:24px;padding:9px 13px;border-left:2px solid var(--border2);}
+.cat-title{font-size:10px;color:var(--text3);letter-spacing:0.1em;
+  text-transform:uppercase;margin-bottom:11px;margin-top:28px;}
+.cat-title:first-of-type{margin-top:0;}
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.cc{padding:14px 16px;border:1px solid var(--border);border-radius:4px;
+  background:var(--card);transition:all .2s;position:relative;
+  text-decoration:none;display:block;cursor:none;}
+.cc:hover{border-color:var(--accent);background:var(--hover);transform:translateY(-1px);}
+.cc:hover .cc-arrow{opacity:1;}
+.cc:hover .cn{color:var(--accent);}
+.cc.e{border-left:2px solid var(--accent);}
+.cc.ip{opacity:0.42;border-style:dashed;pointer-events:none;}
+.cc.hk{border-left:2px solid #fbbf24;}
+.cc.hk:hover{border-color:#fbbf24;}
+.cc.hk:hover .cn{color:#fbbf24;}
+.cn{font-family:'Syne',sans-serif;font-size:12.5px;font-weight:600;
+  color:var(--text);margin-bottom:2px;transition:color .15s;}
+.ci{font-size:10.5px;color:var(--text2);}
+.cy{font-size:10px;color:var(--accent);margin-top:7px;}
+.cy.gold{color:#fbbf24;}
+.cs{font-size:10px;color:var(--text3);margin-top:7px;font-style:italic;}
+.cc-arrow{position:absolute;top:11px;right:11px;font-size:10px;
+  color:var(--accent);opacity:0;transition:opacity .15s;}
+
+/* WRITING */
+#pg-write .w{padding-top:52px;padding-bottom:80px;}
+.wintro{font-size:13px;color:var(--text2);line-height:1.85;max-width:480px;margin-bottom:28px;}
+.wintro span{color:var(--text);}
+.medium-link{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;
+  border:1px solid var(--border2);border-radius:3px;font-size:11px;color:var(--text2);
+  text-decoration:none;transition:all .15s;cursor:none;margin-bottom:28px;}
+.medium-link:hover{border-color:var(--accent);color:var(--accent);}
+.wl{display:flex;flex-direction:column;}
+.wi{display:grid;grid-template-columns:1fr 88px;gap:14px;align-items:baseline;
+  padding:14px 0;border-bottom:1px solid var(--border);text-decoration:none;
+  cursor:none;transition:all .15s;}
+.wi:first-child{border-top:1px solid var(--border);}
+.wi:hover .wtit{color:var(--accent);}
+.wtit{font-size:13px;color:var(--text);transition:color .15s;line-height:1.5;}
+.wtag{font-size:9.5px;color:var(--text3);letter-spacing:0.06em;text-transform:uppercase;margin-top:3px;}
+.wdt{font-size:10.5px;color:var(--text3);text-align:right;white-space:nowrap;}
+.wnote{margin-top:32px;padding:14px 17px;border:1px solid var(--border);
+  border-radius:4px;background:var(--card);}
+.wnote p{font-size:12px;color:var(--text2);line-height:1.8;}
+.wnote span{color:var(--accent);}
+
+/* CONTACT */
+#pg-con .w{padding-top:52px;padding-bottom:80px;}
+.ch2{font-family:'Instrument Serif',serif;font-size:clamp(26px,4vw,42px);
+  font-weight:400;line-height:1.15;letter-spacing:-0.5px;color:var(--text);margin-bottom:12px;}
+.ch2 em{font-style:italic;color:var(--accent);}
+.csub{font-size:12.5px;color:var(--text2);line-height:1.85;max-width:440px;margin-bottom:30px;}
+.cgr{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:20px;}
+.cl{display:flex;align-items:center;gap:11px;padding:13px 16px;border:1px solid var(--border);
+  border-radius:4px;background:var(--card);text-decoration:none;color:var(--text2);
+  font-size:12px;transition:all .18s;cursor:none;}
+.cl:hover{border-color:var(--accent);color:var(--text);background:var(--hover);}
+.cico{font-size:14px;flex-shrink:0;}
+.clb{font-size:9.5px;color:var(--text3);letter-spacing:0.06em;text-transform:uppercase;
+  display:block;margin-bottom:1px;}
+.clv{color:var(--text);font-size:11.5px;}
+.ecp{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;
+  border:1px solid var(--border2);border-radius:4px;background:var(--card);
+  font-family:'DM Mono',monospace;font-size:12.5px;color:var(--text2);
+  cursor:none;transition:all .18s;}
+.ecp:hover{border-color:var(--accent);color:var(--accent);}
+.ch{font-size:9.5px;color:var(--text3);letter-spacing:0.06em;}
+.cpd{font-size:10.5px;color:var(--accent);opacity:0;transition:opacity .3s;margin-left:4px;}
+.cpd.s{opacity:1;}
+
+@media(max-width:700px){
+  .hero-row{flex-direction:column;align-items:flex-start;gap:12px;}
+  .ng{grid-template-columns:1fr 1fr;}
+  .pi{grid-template-columns:1fr;}.pb{justify-self:start;}
+  .ei,.edi{grid-template-columns:1fr;gap:4px;}
+  .cg{grid-template-columns:1fr 1fr;}
+  .cgr{grid-template-columns:1fr;}
+  .nb{font-size:9px;padding:4px 5px;}
+  .sep{display:none;}h1{font-size:28px;}
+  .paper-meta-grid{grid-template-columns:1fr;}
+}
+@media(max-width:420px){.cg{grid-template-columns:1fr;}.ng{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+
+<nav>
+  <div class="ni">
+    <a href="#" class="logo" onclick="go('home');return false;">MR<b>.</b></a>
+    <div class="nr">
+      <button class="nb on" id="nb-home"     onclick="go('home')"     data-tip="home">⌂</button>
+      <button class="nb"    id="nb-projects" onclick="go('projects')" data-tip="projects">◈</button>
+      <button class="nb"    id="nb-exp"      onclick="go('exp')"      data-tip="experience">◎</button>
+      <button class="nb"    id="nb-os"       onclick="go('os')"       data-tip="open source">⌥</button>
+      <button class="nb"    id="nb-research" onclick="go('research')" data-tip="research">⬡</button>
+      <button class="nb"    id="nb-wins"     onclick="go('wins')"     data-tip="certifications">⊕</button>
+      <button class="nb"    id="nb-write"    onclick="go('write')"    data-tip="writing">✦</button>
+      <button class="nb"    id="nb-con"      onclick="go('con')"      data-tip="contact">◉</button>
+        <span class="ts-lbl on" id="tl-d">dark</span>
+        <label class="ts"><input type="checkbox" id="ts-chk" onchange="tt()"><span class="ts-sl"></span></label>
+        <span class="ts-lbl" id="tl-l">light</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="pg-home" class="pg on">
+<div class="hw">
+
+  <!-- HERO ROW: stickman + text -->
+  <div style="display:flex;align-items:flex-end;gap:28px;margin-bottom:28px;">
+
+    <!-- STICKMAN -->
+    <div style="flex-shrink:0;">
+      <svg width="82" height="118" viewBox="0 0 82 118" xmlns="http://www.w3.org/2000/svg"
+        style="stroke:var(--text);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none;transition:stroke 0.3s;">
+        <!-- head -->
+        <circle cx="41" cy="15" r="11.5"/>
+        <!-- eyes -->
+        <circle cx="37" cy="13" r="1.2" style="fill:var(--accent);stroke:none;"/>
+        <circle cx="45" cy="13" r="1.2" style="fill:var(--accent);stroke:none;"/>
+        <!-- subtle smirk -->
+        <path d="M37 18.5 Q41 21.5 45 18.5" style="stroke:var(--accent);"/>
+        <!-- hair -->
+        <path d="M30.5 10 Q36 3 41 3.5 Q46 3 51.5 10" style="stroke-width:2.2;"/>
+        <!-- headphones -->
+        <path d="M29.5 14.5 Q27 13 27 16 Q27 19 29.5 18" style="stroke:var(--accent);stroke-width:1.4;"/>
+        <path d="M52.5 14.5 Q55 13 55 16 Q55 19 52.5 18" style="stroke:var(--accent);stroke-width:1.4;"/>
+        <path d="M29.5 16 Q35 7 41 7.5 Q47 7 52.5 16" style="stroke:var(--accent);stroke-width:1.1;"/>
+        <!-- neck -->
+        <line x1="41" y1="26.5" x2="41" y2="33"/>
+        <!-- torso -->
+        <line x1="41" y1="33" x2="41" y2="70"/>
+        <!-- left arm — relaxed down -->
+        <path d="M41 38 Q25 46 20 60"/>
+        <!-- right arm — holding coffee -->
+        <path d="M41 38 Q57 46 62 59"/>
+        <!-- coffee cup -->
+        <rect x="59" y="57" width="9" height="10" rx="1.5" style="stroke:var(--accent);"/>
+        <path d="M68 60 Q72 60 72 63 Q72 66 68 66" style="stroke:var(--accent);stroke-width:1.2;"/>
+        <line x1="60" y1="57" x2="67" y2="57" style="stroke:var(--accent);stroke-width:1;"/>
+        <!-- steam wisps -->
+        <path d="M62 55 Q63 52 62 49" style="stroke:var(--accent);stroke-width:0.9;opacity:0.5;"/>
+        <path d="M65 55 Q66 51 65 48" style="stroke:var(--accent);stroke-width:0.9;opacity:0.5;"/>
+        <!-- left leg -->
+        <path d="M41 70 Q35 86 31 103"/>
+        <!-- right leg -->
+        <path d="M41 70 Q47 86 51 103"/>
+        <!-- shoes -->
+        <path d="M31 103 Q25 106 23 104"/>
+        <path d="M51 103 Q57 106 59 104"/>
+      </svg>
+    </div>
+
+    <div>
+      <div class="htag"><span class="dot"></span> open to opportunities</div>
+      <h1>Manas Raj —<br><em>Engineer</em> &<br>Builder.</h1>
+      <p class="tline">// Engineer by day, philosopher by night.</p>
+    </div>
+  </div>
+
+  <p class="bio">
+    <span>CS student at KIIT.</span> I build AI systems, publish research, and contribute to open source. Currently making things that are either useful or interesting — sometimes both. Outside code: philosophy, music, and too much coffee.
+  </p>
+  <div class="crow">
+    <a href="#" class="btn p" onclick="go('con');return false;">→ get in touch</a>
+    <a href="#" class="btn" onclick="go('projects');return false;">projects</a>
+    <a href="https://github.com/manas-raj999" target="_blank" class="btn">github ↗</a>
+    <a href="https://linkedin.com/in/manas-raj-82977a2a6" target="_blank" class="btn">linkedin ↗</a>
+    <a href="https://x.com/manas_raj_" target="_blank" class="btn">𝕏 ↗</a>
+    <a href="https://drive.google.com/file/d/1yme7gzRhbtTe6iDkZKTy5Cokj0ZVoNPA/view?usp=sharing" target="_blank" class="btn">resume ↗</a>
+  </div>
+  <div class="irow">
+    <span class="ic">⌨ open source</span>
+    <span class="ic">🔬 research</span>
+    <span class="ic">📖 reading</span>
+    <span class="ic">🎮 gaming</span>
+    <span class="ic">🎵 music</span>
+    <span class="ic">🤔 philosophy</span>
+    <span class="ic">☁ cloud infra</span>
+    <span class="ic">🤖 agentic AI</span>
+  </div>
+  <div class="blob-wrap">
+    <canvas class="blob-canvas" id="blobCanvas"></canvas>
+    <div class="blob-overlay">
+      <p class="blob-text">"The <em>second best time</em> to plant a tree<br>is right now."</p>
+      <span class="blob-sub">// building · researching · contributing · learning</span>
+    </div>
+  </div>
+  <div class="nowt">// currently</div>
+  <div class="ng">
+    <div class="nc"><div class="nl">building</div><div class="nv">TimeLeak</div><div class="ns">Android · attention tracker</div></div>
+    <div class="nc"><div class="nl">hackathon</div><div class="nv">StudyStack</div><div class="ns">Polar × Lovable 2026</div></div>
+    <div class="nc"><div class="nl">learning</div><div class="nv">Agentic AI</div><div class="ns">agents & orchestration</div></div>
+    <div class="nc"><div class="nl">reading</div><div class="nv">Naval Ravikant</div><div class="ns">Almanack</div></div>
+  </div>
+</div>
+<div class="ft"><span>2026 – Present © Manas Raj</span> · Built with intention.</div>
+</div>
+
+<!-- PROJECTS -->
+<div id="pg-projects" class="pg">
+<div class="w">
+  <div class="sl"><span class="sn">02</span><span class="st">Projects</span><div class="sli"></div></div>
+  <div class="pl">
+
+    <div class="pi">
+      <div>
+        <div class="pn">Scam Honeypot — Dual-Agent Social Engineering Trap</div>
+        <div class="pd">A defensive AI system that lures scammers using a Gemini-powered "confused elderly victim" agent (Ramesh, 62) while a silent background analyst extracts intelligence — UPI IDs, phishing links, bank details, tactic patterns. Auto-reports when jackpot criteria are met. Built for the GUVI Agentic AI Hackathon.</div>
+        <div class="tags">
+          <span class="tg hi">Python</span><span class="tg hi">FastAPI</span><span class="tg hi">Gemini API</span>
+          <span class="tg">Dual-Agent</span><span class="tg">Pydantic</span><span class="tg">Agentic AI</span><span class="tg">Security</span>
+        </div>
+        <div class="plk"><a href="#" target="_blank">github →</a><a href="#" target="_blank">demo →</a></div>
+      </div>
+      <span class="pb bs">Security</span>
+    </div>
+
+    <div class="pi">
+      <div>
+        <div class="pn">Aadhaar Insights: Societal Trends Analytics</div>
+        <div class="pd">UIDAI Hackathon — analyzed Aadhaar enrolment datasets to uncover regional trends, anomalies, and predictive indicators. Dashboards supporting data-driven policy decisions at national scale.</div>
+        <div class="tags"><span class="tg hi">Python</span><span class="tg hi">Pandas</span><span class="tg">NumPy</span><span class="tg">Matplotlib</span></div>
+        <div class="plk"><a href="#" target="_blank">github →</a><a href="#" target="_blank">case study →</a></div>
+      </div>
+      <span class="pb bh">Hackathon</span>
+    </div>
+
+    <div class="pi">
+      <div>
+        <div class="pn">AWS VPC Automation</div>
+        <div class="pd">Reusable Terraform modules automating secure VPC provisioning — subnets, route tables, gateways. Zero-touch deployment via GitHub Actions + AWS Secrets Manager.</div>
+        <div class="tags"><span class="tg hi">Terraform</span><span class="tg hi">AWS</span><span class="tg">GitHub Actions</span><span class="tg">IaC</span></div>
+        <div class="plk"><a href="#" target="_blank">github →</a></div>
+      </div>
+      <span class="pb bi">Infra</span>
+    </div>
+
+    <div class="pi">
+      <div>
+        <div class="pn">Smart MICE Management Platform</div>
+        <div class="pd">Voyage Hackathon — AI-driven platform optimizing corporate event bookings, venue allocation and pricing. Recommendation engine forecasting demand and improving hotel revenue.</div>
+        <div class="tags"><span class="tg hi">Python</span><span class="tg">AI/ML</span><span class="tg">Dashboards</span></div>
+        <div class="plk"><a href="#" target="_blank">github →</a><a href="#" target="_blank">demo →</a></div>
+      </div>
+      <span class="pb ba">AI</span>
+    </div>
+
+    <div class="pi">
+      <div>
+        <div class="pn">TimeLeak <span style="font-size:10.5px;color:var(--text3);font-weight:300;">— in progress</span></div>
+        <div class="pd">"Fitbit for Attention" — Android app using UsageStats API to detect micro-distraction patterns. Tracks when you open Instagram 14 times a day for 2 mins each. Kotlin + Jetpack Compose.</div>
+        <div class="tags"><span class="tg hi">Kotlin</span><span class="tg hi">Jetpack Compose</span><span class="tg">MVVM</span><span class="tg">Room DB</span><span class="tg">Hilt</span></div>
+        <div class="plk"><a href="#" target="_blank">github →</a></div>
+      </div>
+      <span class="pb bw">Android</span>
+    </div>
+
+    <div class="pi">
+      <div>
+        <div class="pn">StudyStack <span style="font-size:10.5px;color:var(--text3);font-weight:300;">— hackathon build</span></div>
+        <div class="pd">Multiplayer study platform — live rooms, AI tutor via Claude API, XP/streak system, leaderboards. Polar × Lovable 2026 competing for $10,000 MRR prize.</div>
+        <div class="tags"><span class="tg hi">Lovable</span><span class="tg hi">Claude API</span><span class="tg">Supabase</span><span class="tg">Polar</span></div>
+        <div class="plk"><a href="#" target="_blank">live →</a><a href="#" target="_blank">github →</a></div>
+      </div>
+      <span class="pb bh">Hackathon</span>
+    </div>
+
+    <div class="pi" style="opacity:0.28;">
+      <div>
+        <div class="pn">[Next project]</div>
+        <div class="pd">Add your next build here.</div>
+        <div class="tags"><span class="tg">coming soon</span></div>
+      </div>
+      <span class="pb bw">Soon</span>
+    </div>
+
+  </div>
+</div>
+<div class="ft"><span>2026 – Present © Manas Raj</span></div>
+</div>
+
+<!-- EXPERIENCE -->
+<div id="pg-exp" class="pg">
+<div class="w">
+  <div class="sl"><span class="sn">03</span><span class="st">Experience & Education</span><div class="sli"></div></div>
+  <div class="sl" style="margin-bottom:12px;"><span class="st" style="font-size:9.5px;color:var(--text3);">Clubs & Community</span><div class="sli"></div></div>
+
+  <div class="ei">
+    <div class="ed">Jul 2024 — Present</div>
+    <div>
+      <div class="er">Cloud Automation Lead</div>
+      <div class="eo">Cloud & Automation Society · KIIT</div>
+      <span class="etype">Student Society</span>
+      <ul class="ebl">
+        <li>Automated deployment workflows with GitHub Actions — cut provisioning time by 40%</li>
+        <li>Built reusable Terraform modules for secure AWS multi-environment deployments</li>
+        <li>Developed RPA workflows in UiPath to automate repetitive cloud admin tasks</li>
+        <li>Conducted technical interviews; drove team skill development</li>
+      </ul>
+      <div class="tags" style="margin-top:10px;">
+        <span class="tg">AWS</span><span class="tg">Terraform</span><span class="tg">GitHub Actions</span><span class="tg">UiPath</span><span class="tg">Jenkins</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ei">
+    <div class="ed">2025</div>
+    <div>
+      <div class="er">Member</div>
+      <div class="eo">Google Developer Groups (GDG) · KIIT Chapter</div>
+      <span class="etype">Community</span>
+      <ul class="ebl">
+        <li>Active member of GDG KIIT — Google's official developer community chapter</li>
+        <li>Helped organize and facilitate Google Summer Cohort 2025 at KIIT</li>
+        <li>Assisted with workshops, speaker sessions, and student engagement</li>
+      </ul>
+      <div class="tags" style="margin-top:10px;">
+        <span class="tg">Google</span><span class="tg">Community</span><span class="tg">Developer Ecosystem</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sl" style="margin-top:36px;margin-bottom:16px;">
+    <span class="st" style="font-size:9.5px;color:var(--text3);">Internships & Jobs</span><div class="sli"></div>
+  </div>
+  <div class="future-card">
+    <div class="future-title">Not yet — but actively looking. 🎯</div>
+    <div class="future-sub">
+      Building at the intersection of AI and systems. Currently working on agentic AI projects, contributing to open source, and publishing research — looking for opportunities where I can work on things that actually matter. If that sounds like your team, let's talk.
+    </div>
+    <div class="future-chips">
+      <span class="fchip">AI / ML Engineering</span>
+      <span class="fchip">Agentic Systems</span>
+      <span class="fchip">AI Infrastructure</span>
+      <span class="fchip">Backend Engineering</span>
+      <span class="fchip">Research Engineering</span>
+      <span class="fchip">Open to Relocation</span>
+    </div>
+  </div>
+
+  <div class="sl" style="margin-top:36px;margin-bottom:12px;">
+    <span class="st" style="font-size:9.5px;color:var(--text3);">Education</span><div class="sli"></div>
+  </div>
+  <div class="edi">
+    <div class="ed">2023 — 2027</div>
+    <div>
+      <div class="edeg">B.Tech — Computer Science</div>
+      <div class="esch">Kalinga Institute of Industrial Technology (KIIT)</div>
+      <div class="edt">Bhubaneswar, India · Expected July 2027</div>
+      <div class="tags" style="margin-top:9px;">
+        <span class="tg">DSA</span><span class="tg">Cloud Computing</span><span class="tg">Operating Systems</span><span class="tg">OOP</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ft"><span>2026 – Present © Manas Raj</span></div>
+</div>
+
+<!-- OPEN SOURCE -->
+<div id="pg-os" class="pg">
+<div class="w">
+  <div class="sl"><span class="sn">04</span><span class="st">Open Source</span><div class="sli"></div></div>
+  <p class="os-intro">I believe in <span>building in public and giving back</span>. Here are my contributions to projects that real people use.</p>
+  <div class="osl">
+    <div class="osi">
+      <div class="os-top">
+        <div>
+          <div class="osn">gemini-cli</div>
+          <div class="osr">google-gemini / gemini-cli</div>
+          <div class="osd">Contributed to Google's official Gemini CLI — an open source AI agent that brings Gemini's capabilities to the terminal. Part of the growing ecosystem of agentic developer tools.</div>
+          <div class="tags" style="margin-bottom:10px;"><span class="tg hi">TypeScript</span><span class="tg">CLI</span><span class="tg">Gemini API</span><span class="tg">Agentic AI</span></div>
+          <div class="oslk">
+            <a href="https://github.com/google-gemini/gemini-cli" target="_blank">repo ↗</a>
+            <a href="https://github.com/google-gemini/gemini-cli/pull/22512" target="_blank" class="pr-pill">⎇ <span class="pr-num">#22512</span></a>
+          </div>
+        </div>
+        <span class="os-badge">contributor</span>
+      </div>
+    </div>
+    <div class="osi" style="opacity:0.28;">
+      <div class="os-top">
+        <div>
+          <div class="osn">[Next contribution]</div>
+          <div class="osr">org / repo</div>
+          <div class="osd">Add your next open source contribution here.</div>
+          <div class="tags"><span class="tg">language</span><span class="tg">area</span></div>
+        </div>
+        <span class="os-badge" style="opacity:0.4;">soon</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ft"><span>2026 – Present © Manas Raj</span></div>
+</div>
+
+<!-- RESEARCH -->
+<div id="pg-research" class="pg">
+<div class="w">
+  <div class="sl"><span class="sn">05</span><span class="st">Research</span><div class="sli"></div></div>
+  <p class="res-intro">Peer-reviewed research presented at <span>international IEEE conferences</span>. I work at the intersection of quantum computing, AI, and urban systems.</p>
+
+  <div class="paper-card">
+    <div class="paper-status"><span class="paper-dot"></span> Published · Presented</div>
+    <div class="paper-title">Quantum-Optimized Ride-Pooling for Urban Mobility Using QUBO and Hybrid Quantum-Classical Algorithms</div>
+    <div class="paper-conf">ICPC²T-2026 · Paper ID: PID 19</div>
+    <div class="paper-venue">
+      Fifth International Conference on Power, Control and Computing Technologies<br>
+      National Institute of Technology Raipur · 11–13 March 2026<br>
+      IEEE Madhya Pradesh Section · IEEE IAS · IEEE Student Branch NIT Raipur · PELS IEEE
+    </div>
+    <div class="paper-meta-grid">
+      <div><div class="paper-meta-label">Conference</div><div class="paper-meta-val">ICPC²T-2026</div></div>
+      <div><div class="paper-meta-label">Venue</div><div class="paper-meta-val">NIT Raipur, India</div></div>
+      <div><div class="paper-meta-label">Date</div><div class="paper-meta-val">11 – 13 March 2026</div></div>
+      <div><div class="paper-meta-label">Organizer</div><div class="paper-meta-val">IEEE Madhya Pradesh Section</div></div>
+    </div>
+    <div class="paper-authors">
+      <div style="font-size:9.5px;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;">Co-Authors</div>
+      <span>Manas Raj</span>, Sakshi Shreya, Sankalpa Giri, Ashutosh Kumar, Udita Monani, Bindu Agarwalla
+    </div>
+    <div class="tags" style="margin-bottom:16px;">
+      <span class="tg hi">Quantum Computing</span><span class="tg hi">QUBO</span>
+      <span class="tg">Hybrid Algorithms</span><span class="tg">Urban Mobility</span>
+      <span class="tg">Ride-Pooling</span><span class="tg">Optimization</span><span class="tg">IEEE</span>
+    </div>
+    <div class="paper-links">
+      <a href="https://drive.google.com/file/d/1dQ_ln_lC4wkFGViP_9h4wr1kuQMVCoU-/view?usp=drive_link" target="_blank" class="paper-link primary">↗ View Certificate</a>
+      <a href="#" class="paper-link">paper →</a>
+      <a href="#" class="paper-link">conference →</a>
+    </div>
+  </div>
+
+  <div class="res-placeholder">
+    <div class="res-placeholder-t">[Next paper / research]</div>
+    <div class="res-placeholder-s">Add your next research contribution here.</div>
+  </div>
+</div>
+<div class="ft"><span>2026 – Present © Manas Raj</span></div>
+</div>
+
+<!-- CERTS -->
+<div id="pg-wins" class="pg">
+<div class="w">
+  <div class="sl"><span class="sn">06</span><span class="st">Certifications</span><div class="sli"></div></div>
+  <p class="cert-intro">// Click any certificate to view it. Earned — automation to AI to hackathons.</p>
+
+  <div class="cat-title">⚡ Automation & DevOps</div>
+  <div class="cg">
+    <a class="cc e" href="https://drive.google.com/file/d/1tU4-aEDIEuDYCrAoUjV7dcv6hBCNR9KI/view?usp=drive_link" target="_blank"><span class="cc-arrow">↗</span><div class="cn">Agentic Automation</div><div class="ci">UiPath</div><div class="cy">2025</div></a>
+    <a class="cc e" href="https://drive.google.com/file/d/11NDd99qZKPziaV0b3nOsWumNWQWtGt2N/view?usp=sharing" target="_blank"><span class="cc-arrow">↗</span><div class="cn">Automation Starter</div><div class="ci">UiPath</div><div class="cy">2025</div></a>
+    <a class="cc e" href="https://drive.google.com/file/d/1oSBx4fIjchliZxO9sAhsospRRZtDe-y7/view?usp=sharing" target="_blank"><span class="cc-arrow">↗</span><div class="cn">CodeSprint</div><div class="ci">UiPath</div><div class="cy">2026</div></a>
+    <a class="cc e" href="https://drive.google.com/file/d/1t3t0LrI5bDpFwBDW-JkT3vwFzjcGs0o1/view?usp=sharing" target="_blank"><span class="cc-arrow">↗</span><div class="cn">DevOps Engineer</div><div class="ci">OneRoadmap</div><div class="cy">2025</div></a>
+  </div>
+
+  <div class="cat-title">🤖 AI & Machine Learning</div>
+  <div class="cg">
+    <a class="cc e" href="https://drive.google.com/file/d/1kVyCmvYxNO-O23rESeqk7XmMgWDcV2PO/view?usp=sharing" target="_blank"><span class="cc-arrow">↗</span><div class="cn">5-Day Gen AI Intensive</div><div class="ci">Google / Kaggle</div><div class="cy">2025</div></a>
+    <a class="cc e" href="https://drive.google.com/file/d/1uS_1x2qUqnporKP2Uu3A7pgCW5xQOiDQ/view?usp=drive_link" target="_blank"><span class="cc-arrow">↗</span><div class="cn">Vibe Coding — Google AI Studio</div><div class="ci">HCL · GUVI</div><div class="cy">2025</div></a>
+  </div>
+
+  <div class="cat-title">📚 Business, Ethics & Leadership</div>
+  <div class="cg">
+    <a class="cc e" href="https://drive.google.com/file/d/1e0S1Zf8wTpFXBH8vpMEcV7viYSq6eBbo/view?usp=drive_link" target="_blank"><span class="cc-arrow">↗</span><div class="cn">Business for Good</div><div class="ci">Coursera</div><div class="cy">2025</div></a>
+    <a class="cc e" href="https://drive.google.com/file/d/1njfAQWBY0Gvn2R75VoOnrzisqp56h2j_/view?usp=drive_link" target="_blank"><span class="cc-arrow">↗</span><div class="cn">Corporate Governance</div><div class="ci">Coursera</div><div class="cy">2025</div></a>
+    <a class="cc e" href="https://drive.google.com/file/d/1ZHTDR_h3jS1rlr_TlFhGSmI7j2ettQ_X/view?usp=drive_link" target="_blank"><span class="cc-arrow">↗</span><div class="cn">Ethical Decision Making in Tech</div><div class="ci">Coursera</div><div class="cy">2025</div></a>
+  </div>
+
+  <div class="cat-title">🏆 Hackathons & Events</div>
+  <div class="cg">
+    <a class="cc hk" href="https://drive.google.com/file/d/1hrDswUmMYM7_rU6JGulzKb1Zms96fmh_/view?usp=sharing" target="_blank">
+      <span class="cc-arrow" style="color:#fbbf24;">↗</span>
+      <div class="cn">Central India Hackathon 2.0</div><div class="ci">Suryodaya College of Engg & Tech, Nagpur</div><div class="cy gold">2024</div>
+    </a>
+    <div class="cc hk ip"><div class="cn">[Hackathon cert]</div><div class="ci">Add more here</div><div class="cs">paste link</div></div>
+  </div>
+
+  <div class="cat-title">⟳ In Progress</div>
+  <div class="cg">
+    <div class="cc ip"><div class="cn">AWS Solutions Architect</div><div class="ci">Amazon Web Services</div><div class="cs">in progress</div></div>
+    <div class="cc ip"><div class="cn">Terraform Associate</div><div class="ci">HashiCorp</div><div class="cs">planned</div></div>
+  </div>
+</div>
+<div class="ft"><span>2026 – Present © Manas Raj</span></div>
+</div>
+
+<!-- WRITING -->
+<div id="pg-write" class="pg">
+<div class="w">
+  <div class="sl"><span class="sn">07</span><span class="st">Writing</span><div class="sli"></div></div>
+  <p class="wintro">I write about <span>infrastructure, AI, building things</span>, and occasionally <span>philosophy — why we build at all</span>.</p>
+  <a href="https://medium.com/@23052891" target="_blank" class="medium-link">◎ medium.com/@23052891 ↗</a>
+  <div class="wl">
+    <a href="#" class="wi"><div><div class="wtit">Why I'm building TimeLeak — the attention economy has a bug</div><div class="wtag">philosophy · tech</div></div><div class="wdt">coming soon</div></a>
+    <a href="#" class="wi"><div><div class="wtit">How I built a honeypot that makes scammers reveal themselves</div><div class="wtag">security · AI</div></div><div class="wdt">coming soon</div></a>
+    <a href="#" class="wi"><div><div class="wtit">Zero-touch AWS deployment with Terraform + GitHub Actions</div><div class="wtag">devops · cloud</div></div><div class="wdt">coming soon</div></a>
+    <a href="#" class="wi"><div><div class="wtit">What contributing to gemini-cli taught me about open source</div><div class="wtag">open source</div></div><div class="wdt">coming soon</div></a>
+    <a href="#" class="wi"><div><div class="wtit">On philosophy and engineering: why I ask "why" before "how"</div><div class="wtag">philosophy</div></div><div class="wdt">coming soon</div></a>
+  </div>
+  <div class="wnote" style="margin-top:30px;">
+    <p>📬 Want a ping when I publish? <span>Drop me an email</span> — short note when something goes live. No spam.</p>
+  </div>
+</div>
+<div class="ft"><span>2026 – Present © Manas Raj</span></div>
+</div>
+
+<!-- CONTACT -->
+<div id="pg-con" class="pg">
+<div class="w">
+  <div class="sl"><span class="sn">08</span><span class="st">Contact</span><div class="sli"></div></div>
+  <h2 class="ch2">Let's build<br>something <em>real.</em></h2>
+  <p class="csub">Open to internships, collaborations, open source, and interesting conversations. Building something ambitious — or want to debate philosophy? Reach out.</p>
+  <div class="cgr">
+    <a href="https://github.com/manas-raj999" target="_blank" class="cl"><span class="cico">⌥</span><div><span class="clb">GitHub</span><span class="clv">manas-raj999</span></div></a>
+    <a href="https://linkedin.com/in/manas-raj-82977a2a6" target="_blank" class="cl"><span class="cico">◈</span><div><span class="clb">LinkedIn</span><span class="clv">manas-raj-82977a2a6</span></div></a>
+    <a href="https://medium.com/@23052891" target="_blank" class="cl"><span class="cico">◎</span><div><span class="clb">Medium</span><span class="clv">@23052891</span></div></a>
+    <a href="https://x.com/manas_raj_" target="_blank" class="cl"><span class="cico">𝕏</span><div><span class="clb">Twitter / X</span><span class="clv">@manas_raj_</span></div></a>
+  </div>
+  <div class="ecp" onclick="ce()">
+    <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0c7b637e6722616d626d7f227e6d664c6b616d6560226f6361">[email&#160;protected]</a></span>
+    <span class="ch">[ click to copy ]</span>
+    <span class="cpd" id="cpd">✓ copied</span>
+  </div>
+</div>
+<div class="ft"><span>2026 – Present © Manas Raj</span> · Built with intention.</div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function a(){rx+=(mx-rx)*0.11;ry+=(my-ry)*0.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+
+const pgs=['home','projects','exp','os','research','wins','write','con'];
+function go(id){
+  pgs.forEach(p=>{document.getElementById('pg-'+p).classList.remove('on');document.getElementById('nb-'+p).classList.remove('on');});
+  document.getElementById('pg-'+id).classList.add('on');
+  document.getElementById('nb-'+id).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function tt(){
+  const h=document.documentElement,chk=document.getElementById('ts-chk');
+  const dl=document.getElementById('tl-d'),ll=document.getElementById('tl-l');
+  if(chk.checked){h.dataset.theme='light';dl.classList.remove('on');ll.classList.add('on');}
+  else{h.dataset.theme='dark';dl.classList.add('on');ll.classList.remove('on');}
+  initBlob();
+}
+function ce(){
+  navigator.clipboard.writeText('work.manas.raj@gmail.com');
+  const m=document.getElementById('cpd');m.classList.add('s');setTimeout(()=>m.classList.remove('s'),2000);
+}
+let animId=null;
+function initBlob(){
+  const canvas=document.getElementById('blobCanvas');if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const dark=document.documentElement.dataset.theme==='dark';
+  function resize(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;}
+  resize();window.addEventListener('resize',resize);
+  const N=6;
+  const pts=Array.from({length:N},(_,i)=>({angle:(i/N)*Math.PI*2,r:0,speed:0.004+Math.random()*0.003,offset:Math.random()*Math.PI*2,amp:30+Math.random()*40}));
+  let t=0;if(animId)cancelAnimationFrame(animId);
+  function draw(){
+    animId=requestAnimationFrame(draw);
+    const W=canvas.width,H=canvas.height;ctx.clearRect(0,0,W,H);t+=0.008;
+    const cx=W/2,cy=H/2,baseR=Math.min(W,H)*0.28;
+    ctx.beginPath();
+    pts.forEach((p,i)=>{p.r=baseR+Math.sin(t*p.speed*180+p.offset)*p.amp;const x=cx+Math.cos(p.angle)*p.r,y=cy+Math.sin(p.angle)*p.r;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+    ctx.closePath();
+    const g1=ctx.createRadialGradient(cx-40,cy-30,10,cx,cy,baseR+60);
+    if(dark){g1.addColorStop(0,'rgba(200,240,90,0.18)');g1.addColorStop(0.5,'rgba(180,220,60,0.08)');g1.addColorStop(1,'rgba(50,80,20,0.01)');}
+    else{g1.addColorSt
